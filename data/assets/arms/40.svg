@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" width="600" height="660" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" stroke="#000" stroke-width="3">
+  <radialGradient id="a" cx="221.35" cy="220.1" r="405" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#fff" stop-opacity=".31"/>
+    <stop offset=".2" stop-color="#fff" stop-opacity=".25"/>
+    <stop offset=".6" stop-color="#666" stop-opacity=".13"/>
+    <stop offset="1" stop-opacity=".13"/>
+  </radialGradient>
+  <clipPath id="b">
+    <path id="c" d="m1.5 1.5h597v278.5a570 445 0 0 1 -298.5 378.5 570 445 0 0 1 -298.5-378.5z"/>
+  </clipPath>
+  <use xlink:href="#c" fill="#2b5df2"/>
+  <path clip-path="url(#b)" fill="#fcef3c" d="m1.5 111h597v109.5h-597v109.5h597v109.5h-597v109.5h597v109.5h-99.5v-657h-99.5v657h-99.5v-657h-99.5v657h-99.5v-657h-99.5z"/>
+  <use xlink:href="#c" fill="url(#a)"/>
+</svg>

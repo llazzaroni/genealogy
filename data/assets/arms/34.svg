@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   width="409.62933"
+   height="478.40625"
+   id="svg3240"
+   sodipodi:docname="Arms of Hungary (ancient).svg"
+   inkscape:version="0.92.1 r15371">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1680"
+     inkscape:window-height="988"
+     id="namedview54"
+     showgrid="false"
+     inkscape:zoom="1.2375"
+     inkscape:cx="324.15378"
+     inkscape:cy="239.20312"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3240" />
+  <defs
+     id="defs3242">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath15148">
+      <path
+         style="display:inline;fill:#1353b4;fill-opacity:1;stroke:none"
+         id="use15150"
+         d="M 830.49681,226.09324 H 627.45576 c -1.0759,67.80789 -1.0124,135.6251 0,203.43085 0.9754,65.3291 4.2342,116.3096 33.5012,156.1723 35.255,48.0186 93.98839,82.671 169.53989,116.7162"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+  </defs>
+  <metadata
+     id="metadata3245">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="g35">
+    <g
+       id="g29">
+      <path
+         style="display:inline;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none"
+         d="M 1.7695312 1.0039062 C 0.69363123 68.8118 0.75713123 136.6298 1.7695312 204.43555 C 2.7449313 269.76465 6.0025273 320.74472 35.269531 360.60742 C 70.524529 408.62602 129.25905 443.27902 204.81055 477.32422 C 280.36195 443.27902 339.09462 408.62602 374.34961 360.60742 C 403.61661 320.74472 406.87616 269.76465 407.85156 204.43555 C 408.86395 136.6298 408.92746 68.8118 407.85156 1.0039062 L 1.7695312 1.0039062 z "
+         id="path4550" />
+      <path
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;vector-effect:none;fill:#ce0f25;fill-opacity:1;fill-rule:nonzero;stroke:#800000;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal;enable-background:accumulate"
+         d="M 1.7695312 1.0039062 C 1.4570699 20.696581 1.2499269 40.390248 1.125 60.083984 L 408.49414 60.083984 C 408.36921 40.390248 408.16402 20.696581 407.85156 1.0039062 L 1.7695312 1.0039062 z M 1.0195312 118.19141 C 1.0691124 137.56091 1.1950448 156.93024 1.4082031 176.29883 L 408.21094 176.29883 C 408.42409 156.93024 408.55198 137.56091 408.60156 118.19141 L 1.0195312 118.19141 z M 2.5175781 234.4043 C 3.3080906 255.35686 4.8004538 274.70725 7.9921875 292.51172 L 401.62695 292.51172 C 404.81869 274.70724 406.31105 255.35687 407.10156 234.4043 L 2.5175781 234.4043 z M 28.632812 350.62305 C 30.686643 354.02383 32.882573 357.3563 35.269531 360.60742 C 48.217 378.24235 64.344106 394.06906 83.294922 408.73047 L 326.32617 408.73047 C 345.27699 394.06906 361.40214 378.24235 374.34961 360.60742 C 376.73669 357.35613 378.93436 354.02401 380.98828 350.62305 L 28.632812 350.62305 z "
+         id="rect4725" />
+    </g>
+    <path
+       style="display:inline;fill:none;stroke:#554400;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path12506"
+       d="m 1.768741,1.00467 c -1.07590002,67.807894 -1.01240002,135.6251 0,203.43085 0.9754,65.3291 4.2342,116.3096 33.501204,156.1723 35.254998,48.0186 93.988385,82.671 169.539885,116.7162 75.5514,-34.0452 134.28481,-68.6976 169.5398,-116.7162 29.267,-39.8627 32.52581,-90.8432 33.50121,-156.1723 1.01239,-67.80575 1.0759,-135.622956 0,-203.43085 H 204.80979 Z"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

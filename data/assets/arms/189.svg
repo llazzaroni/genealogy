@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" width="573.23315" height="573.23315" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <clipPath id="m1">
+    <path id="ray1" d="m-21-68.5a21,21 0 0 0 42,0l-21-217.5z m0,137a21,21 0 0 1 42,0l-21,217.5z" stroke-linejoin="round"/>
+  </clipPath>
+  <clipPath id="m2">
+    <path id="ray2" d="m-16.4-118a16.4,16.4 0 0 0 32.8,0l-16.4-168z m0,236a16.4,16.4 0 0 1 32.8,0l-16.4,168z" transform="rotate(22.5)" stroke-linejoin="round"/>
+  </clipPath>
+  <clipPath id="m3">
+    <path id="flow1" d="m0,0 -7-22.5a7,7 0 0 1 14,0 l-14,45a7,7 0 0 0 14,0z"/>
+  </clipPath>
+  <clipPath id="m4">
+    <path id="flow2" d="m0,0 -5.797159-17.84182a5.4,6.2 0 0 1 11.594318,0 l-11.594318,35.68364a5.4,6.2 0 0 0 11.594318,0z"/>
+  </clipPath>
+  <g transform="translate(286.616575 286.616575)">
+    <g id="a">
+      <g clip-path="url(#m1)">
+        <use xlink:href="#ray1" fill="#feeb95" stroke="#fee46e" stroke-width="23"/>
+        <use xlink:href="#ray1" fill="none" stroke="#feda36" stroke-width="10"/>
+      </g>
+      <use xlink:href="#ray1" fill="none" stroke="#a80"/>
+      <g clip-path="url(#m2)">
+        <use xlink:href="#ray2" fill="#feeb95" stroke="#fee46e" stroke-width="23"/>
+        <use xlink:href="#ray2" fill="none" stroke="#feda36" stroke-width="10"/>
+      </g>
+      <use xlink:href="#ray2" fill="none" stroke="#a80"/>
+    </g>
+    <use xlink:href="#a" transform="rotate(45)"/>
+    <use xlink:href="#a" transform="rotate(90)"/>
+    <use xlink:href="#a" transform="rotate(135)"/>
+    <g fill="none" stroke="#a80">
+      <circle fill="#feda36" r="30.2"/>
+      <circle stroke-width="3" r="35.8"/>
+      <circle stroke="#feda36" r="35.8"/>
+      <circle stroke-width="3" r="41.6"/>
+      <circle stroke="#feda36" r="41.6"/>
+    </g>
+    <g id="b" transform="rotate(-18)">
+      <g clip-path="url(#m3)">
+        <use xlink:href="#flow1" fill="#feeb95" stroke="#fee46e" stroke-width="7"/>
+        <use xlink:href="#flow1" fill="none" stroke="#feda36" stroke-width="4"/>
+      </g>
+      <use xlink:href="#flow1" fill="none" stroke="#a80"/>
+    </g>
+    <use xlink:href="#b" transform="rotate(36)"/>
+    <use xlink:href="#b" transform="rotate(72)"/>
+    <use xlink:href="#b" transform="rotate(108)"/>
+    <use xlink:href="#b" transform="rotate(144)"/>
+    <g id="c">
+      <g clip-path="url(#m4)">
+        <use xlink:href="#flow2" fill="#feeb95" stroke="#fee46e" stroke-width="6"/>
+        <use xlink:href="#flow2" fill="none" stroke="#feda36" stroke-width="3"/>
+      </g>
+      <use xlink:href="#flow2" fill="none" stroke="#a80"/>
+    </g>
+    <use xlink:href="#c" transform="rotate(36)"/>
+    <use xlink:href="#c" transform="rotate(72)"/>
+    <use xlink:href="#c" transform="rotate(108)"/>
+    <use xlink:href="#c" transform="rotate(144)"/>
+  </g>
+</svg>

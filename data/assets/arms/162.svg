@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="svg2" xmlns:svg="http://www.w3.org/2000/svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="600px" height="660px"
+	 viewBox="0 0 600 660" enable-background="new 0 0 600 660" xml:space="preserve">
+<path fill="#FFFFFF" d="M300,658.5c0,0,298.5-112.32,298.5-397.772c0-285.451,0-258.552,0-258.552H1.5v258.552
+	C1.5,546.18,300,658.5,300,658.5z"/>
+<desc  id="desc4">Blason Vide 3D</desc>
+<path fill="#D40000" stroke="#000000" stroke-width="2.2" d="M101.033,329.041l99.532,163.771l-46.558,76.606
+	c-41.913-35.236-84.167-81.697-113.536-140.73L101.033,329.041z M446.123,569.308c41.912-35.259,84.151-81.743,113.493-140.802
+	l-60.451-99.465l-99.533,163.771L446.123,569.308z M598.5,165.598c0-0.219,0-0.437,0-0.655L499.576,2.176h-0.822L399.632,165.27
+	l99.533,163.771L598.5,165.598z M399.632,165.27L300.51,2.176h-0.822L200.565,165.27l99.533,163.771L399.632,165.27z
+	 M200.565,492.812l99.533,163.771l99.533-163.771l-99.533-163.771L200.565,492.812z M200.565,165.27L101.444,2.176h-0.822
+	L1.5,165.27l99.533,163.771L200.565,165.27z"/>
+<g id="layer2">
+	
+		<radialGradient id="path2875_1_" cx="223.937" cy="497.0254" r="299.9995" gradientTransform="matrix(1.3532 0 0 1.3489 -81.0012 -450.8669)" gradientUnits="userSpaceOnUse">
+		<stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:0.3137"/>
+		<stop  offset="0.19" style="stop-color:#FFFFFF;stop-opacity:0.251"/>
+		<stop  offset="0.6" style="stop-color:#6B6B6B;stop-opacity:0.1255"/>
+		<stop  offset="1" style="stop-color:#000000;stop-opacity:0.1255"/>
+	</radialGradient>
+	<path id="path2875" fill="url(#path2875_1_)" d="M300,658.5c0,0,298.5-112.32,298.5-397.772c0-285.451,0-258.551,0-258.551H1.5
+		v258.551C1.5,546.18,300,658.5,300,658.5z"/>
+</g>
+<g id="layer1">
+	<path id="path1411" fill="none" stroke="#000000" stroke-width="3" d="M300,658.5c0,0-298.5-112.32-298.5-397.771
+		c0-285.452,0-258.552,0-258.552h597v258.552C598.5,546.18,300,658.5,300,658.5z"/>
+</g>
+</svg>

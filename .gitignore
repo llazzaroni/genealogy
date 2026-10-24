@@ -1,0 +1,9 @@
+.DS_Store
+.env
+.env.*
+__pycache__/
+*.py
+*.pyc
+*.csv
+graph.json
+client_secret*.json
