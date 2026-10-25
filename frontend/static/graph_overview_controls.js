@@ -10,13 +10,6 @@
     var regionCatalog = window.graphRegionCatalog && typeof window.graphRegionCatalog === 'object'
       ? window.graphRegionCatalog
       : {};
-    var inbreedingByNode = window.graphInbreedingByNode && typeof window.graphInbreedingByNode === 'object'
-      ? window.graphInbreedingByNode
-      : {};
-    var inbreedingBaselineRows = Array.isArray(window.graphInbreedingBaselineRows)
-      ? window.graphInbreedingBaselineRows.slice()
-      : [];
-    var inbreedingMaxGeneration = Number(window.graphInbreedingMaxGeneration) || null;
     if (!dynasties.length) {
       return;
     }
@@ -326,6 +319,9 @@
       if (node.titles != null && String(node.titles) !== 'nan') lines.push('Titles: ' + node.titles);
       if (node.year != null && String(node.year) !== 'nan') lines.push('Birth: ' + node.year);
       if (node.dynasty_name) lines.push('Dynasty: ' + node.dynasty_name);
+      if (node.inbreeding_coefficient != null && isFinite(Number(node.inbreeding_coefficient))) {
+        lines.push('Inbreeding coefficient: ' + (Number(node.inbreeding_coefficient) * 100).toFixed(3) + '%');
+      }
       if (node.region_status === 'OK' || node.region_status === 'PARTIAL') {
         if (node.region_top && node.region_top.length) {
           lines.push('');
@@ -346,17 +342,6 @@
       // buckets instead of retaining a growing cross-house cache.
       parentDataBuckets = {};
       parentDataRecords = {};
-      if (data && data.inbreeding_rows_by_node && typeof data.inbreeding_rows_by_node === 'object') {
-        Object.keys(data.inbreeding_rows_by_node).forEach(function(nodeId) {
-          inbreedingByNode[String(nodeId)] = data.inbreeding_rows_by_node[nodeId];
-        });
-      }
-      if (data && Array.isArray(data.inbreeding_baseline_rows) && data.inbreeding_baseline_rows.length) {
-        inbreedingBaselineRows = data.inbreeding_baseline_rows.slice();
-      }
-      if (data && data.inbreeding_max_generation != null) {
-        inbreedingMaxGeneration = Number(data.inbreeding_max_generation) || inbreedingMaxGeneration;
-      }
       var distributions = regionDistributionByNode(data || {});
       var regionLookup = data && data.region_lookup && typeof data.region_lookup === 'object'
         ? data.region_lookup
@@ -690,8 +675,7 @@
       panel.innerHTML = [
         '<button id="maternal-expand-btn" title="Expand ancestors" style="width:36px;height:36px;margin-right:6px;border:1px solid #bbb;border-radius:6px;background:#fff;cursor:pointer;">⤢</button>',
         '<button id="maternal-dynasty-btn" title="Go to dynasty" style="width:36px;height:36px;margin-right:6px;border:1px solid #bbb;border-radius:6px;background:#fff;cursor:pointer;">♛</button>',
-        '<button id="maternal-region-map-btn" title="Open regional map" style="width:36px;height:36px;margin-right:6px;border:1px solid #bbb;border-radius:6px;background:#fff;cursor:pointer;">🗺</button>',
-        '<button id="maternal-inbreeding-btn" title="Open inbreeding plot" style="width:36px;height:36px;border:1px solid #bbb;border-radius:6px;background:#fff;cursor:pointer;">🧬</button>'
+        '<button id="maternal-region-map-btn" title="Open regional map" style="width:36px;height:36px;border:1px solid #bbb;border-radius:6px;background:#fff;cursor:pointer;">🗺</button>'
       ].join('');
 
       panel.addEventListener('mouseenter', function() {
@@ -739,7 +723,6 @@
       var expandBtn = document.getElementById('maternal-expand-btn');
       var dynastyBtn = document.getElementById('maternal-dynasty-btn');
       var mapBtn = document.getElementById('maternal-region-map-btn');
-      var inbreedingBtn = document.getElementById('maternal-inbreeding-btn');
       var canExpandAncestors = !!node.maternal_bridge;
       expandBtn.style.display = canExpandAncestors ? 'inline-block' : 'none';
       expandBtn.disabled = !canExpandAncestors;
@@ -752,10 +735,6 @@
       mapBtn.disabled = !hasRegionMap;
       mapBtn.style.opacity = hasRegionMap ? '1' : '0.45';
       mapBtn.style.cursor = hasRegionMap ? 'pointer' : 'default';
-      var hasInbreedingRows = !!getInbreedingRowsForNode(nodeId).length;
-      inbreedingBtn.disabled = !hasInbreedingRows;
-      inbreedingBtn.style.opacity = hasInbreedingRows ? '1' : '0.45';
-      inbreedingBtn.style.cursor = hasInbreedingRows ? 'pointer' : 'default';
 
       var positions = network.getPositions([nodeId]);
       var canvasPos = positions[nodeId];
@@ -797,207 +776,6 @@
       ].join('');
 
       container.appendChild(modal);
-    }
-
-    function getInbreedingRowsForNode(nodeId) {
-      var rows = inbreedingByNode[String(nodeId)];
-      return Array.isArray(rows) ? rows : [];
-    }
-
-    function createInbreedingModal() {
-      if (document.getElementById('inbreeding-modal')) return;
-
-      var modal = document.createElement('div');
-      modal.id = 'inbreeding-modal';
-      modal.style.position = 'fixed';
-      modal.style.inset = '0';
-      modal.style.zIndex = '10040';
-      modal.style.display = 'none';
-      modal.style.background = 'rgba(0,0,0,0.24)';
-      modal.style.fontFamily = 'Arial, sans-serif';
-
-      modal.innerHTML = [
-        '<div id="inbreeding-modal-card" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(820px,calc(100vw - 40px));max-height:calc(100vh - 40px);overflow:auto;background:#fff;border-radius:12px;box-shadow:0 12px 34px rgba(0,0,0,0.24);">',
-        '<div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px 8px 18px;border-bottom:1px solid #ececec;">',
-        '<div>',
-        '<div id="inbreeding-modal-title" style="font-size:20px;font-weight:700;color:#222;"></div>',
-        '<div id="inbreeding-modal-subtitle" style="font-size:12px;color:#666;margin-top:4px;"></div>',
-        '</div>',
-        '<button id="inbreeding-modal-close" type="button" style="width:36px;height:36px;border:1px solid #bbb;border-radius:999px;background:#fff;cursor:pointer;font-size:18px;">×</button>',
-        '</div>',
-        '<div id="inbreeding-modal-body" style="padding:16px 18px 18px 18px;"></div>',
-        '</div>'
-      ].join('');
-
-      modal.addEventListener('click', function(event) {
-        if (event.target === modal) {
-          modal.style.display = 'none';
-        }
-      });
-
-      document.body.appendChild(modal);
-      document.getElementById('inbreeding-modal-close').addEventListener('click', function() {
-        modal.style.display = 'none';
-      });
-    }
-
-    function renderInbreedingSvg(rows, baselineRows) {
-      var width = 760;
-      var height = 360;
-      var margin = { top: 20, right: 20, bottom: 34, left: 54 };
-      var chartWidth = width - margin.left - margin.right;
-      var chartHeight = height - margin.top - margin.bottom;
-      var ns = 'http://www.w3.org/2000/svg';
-      var svg = document.createElementNS(ns, 'svg');
-      svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
-      svg.setAttribute('width', '100%');
-      svg.setAttribute('height', String(height));
-      svg.style.display = 'block';
-
-      var generations = [];
-      rows.forEach(function(row) { generations.push(Number(row.generation)); });
-      baselineRows.forEach(function(row) { generations.push(Number(row.generation)); });
-      if (!generations.length) return svg;
-      var minX = Math.min.apply(null, generations);
-      var maxX = Math.max.apply(null, generations);
-      if (minX === maxX) maxX = minX + 1;
-
-      var yCandidates = [0];
-      rows.forEach(function(row) { yCandidates.push(Number(row.inbreeding_index) || 0); });
-      baselineRows.forEach(function(row) {
-        yCandidates.push(Number(row.q10) || 0);
-        yCandidates.push(Number(row.q25) || 0);
-        yCandidates.push(Number(row.q75) || 0);
-        yCandidates.push(Number(row.q90) || 0);
-        yCandidates.push(Number(row.mean_inbreeding_index) || 0);
-      });
-      var maxY = Math.max.apply(null, yCandidates);
-      maxY = Math.max(0.02, maxY * 1.08);
-
-      function sx(value) {
-        return margin.left + ((value - minX) / (maxX - minX)) * chartWidth;
-      }
-      function sy(value) {
-        return margin.top + chartHeight - (value / maxY) * chartHeight;
-      }
-      function appendLine(x1, y1, x2, y2, color, widthPx, dash) {
-        var line = document.createElementNS(ns, 'line');
-        line.setAttribute('x1', x1);
-        line.setAttribute('y1', y1);
-        line.setAttribute('x2', x2);
-        line.setAttribute('y2', y2);
-        line.setAttribute('stroke', color);
-        line.setAttribute('stroke-width', widthPx);
-        if (dash) line.setAttribute('stroke-dasharray', dash);
-        svg.appendChild(line);
-      }
-      function appendText(x, y, text, anchor, size, color) {
-        var el = document.createElementNS(ns, 'text');
-        el.setAttribute('x', x);
-        el.setAttribute('y', y);
-        el.setAttribute('text-anchor', anchor || 'middle');
-        el.setAttribute('font-size', size || 11);
-        el.setAttribute('fill', color || '#555');
-        el.textContent = text;
-        svg.appendChild(el);
-      }
-      function pathFromRows(list, key) {
-        var parts = [];
-        list.forEach(function(row, index) {
-          var x = sx(Number(row.generation));
-          var y = sy(Number(row[key]) || 0);
-          parts.push((index === 0 ? 'M' : 'L') + x + ' ' + y);
-        });
-        return parts.join(' ');
-      }
-      function appendPath(d, stroke, widthPx, fill, opacity, dash) {
-        var path = document.createElementNS(ns, 'path');
-        path.setAttribute('d', d);
-        path.setAttribute('stroke', stroke || 'none');
-        path.setAttribute('stroke-width', widthPx || 0);
-        path.setAttribute('fill', fill || 'none');
-        if (opacity != null) path.setAttribute('opacity', opacity);
-        if (dash) path.setAttribute('stroke-dasharray', dash);
-        svg.appendChild(path);
-      }
-      function bandPath(list, upperKey, lowerKey) {
-        if (!list.length) return '';
-        var upper = [];
-        var lower = [];
-        list.forEach(function(row) {
-          upper.push('L' + sx(Number(row.generation)) + ' ' + sy(Number(row[upperKey]) || 0));
-        });
-        for (var i = list.length - 1; i >= 0; i -= 1) {
-          var row = list[i];
-          lower.push('L' + sx(Number(row.generation)) + ' ' + sy(Number(row[lowerKey]) || 0));
-        }
-        var first = list[0];
-        return 'M' + sx(Number(first.generation)) + ' ' + sy(Number(first[upperKey]) || 0) +
-          upper.slice(1).join(' ') + ' ' + lower.join(' ') + ' Z';
-      }
-
-      appendLine(margin.left, margin.top, margin.left, margin.top + chartHeight, '#888', 1);
-      appendLine(margin.left, margin.top + chartHeight, margin.left + chartWidth, margin.top + chartHeight, '#888', 1);
-      for (var gy = 0; gy <= 4; gy += 1) {
-        var ratio = gy / 4;
-        var yValue = maxY * ratio;
-        var yPos = sy(yValue);
-        appendLine(margin.left, yPos, margin.left + chartWidth, yPos, '#ececec', 1);
-        appendText(margin.left - 8, yPos + 4, (yValue * 100).toFixed(1) + '%', 'end', 11, '#666');
-      }
-      for (var gx = minX; gx <= maxX; gx += 1) {
-        var xPos = sx(gx);
-        appendLine(xPos, margin.top + chartHeight, xPos, margin.top + chartHeight + 5, '#888', 1);
-        appendText(xPos, margin.top + chartHeight + 18, String(gx), 'middle', 11, '#666');
-      }
-
-      if (baselineRows.length) {
-        appendPath(bandPath(baselineRows, 'q90', 'q10'), 'none', 0, '#c8d9eb', 0.9);
-        appendPath(bandPath(baselineRows, 'q75', 'q25'), 'none', 0, '#88bcdc', 0.95);
-        appendPath(pathFromRows(baselineRows, 'mean_inbreeding_index'), '#1f77b4', 1.7, 'none', 1);
-      }
-      appendPath(pathFromRows(rows, 'inbreeding_index'), '#d62728', 2.1, 'none', 1);
-      rows.forEach(function(row) {
-        var dot = document.createElementNS(ns, 'circle');
-        dot.setAttribute('cx', sx(Number(row.generation)));
-        dot.setAttribute('cy', sy(Number(row.inbreeding_index) || 0));
-        dot.setAttribute('r', 3.2);
-        dot.setAttribute('fill', '#d62728');
-        svg.appendChild(dot);
-      });
-
-      appendText(margin.left + chartWidth / 2, height - 4, 'Generation cutoff', 'middle', 12, '#444');
-      var ylabel = document.createElementNS(ns, 'text');
-      ylabel.setAttribute('x', 16);
-      ylabel.setAttribute('y', margin.top + chartHeight / 2);
-      ylabel.setAttribute('transform', 'rotate(-90 16 ' + (margin.top + chartHeight / 2) + ')');
-      ylabel.setAttribute('font-size', '12');
-      ylabel.setAttribute('fill', '#444');
-      ylabel.textContent = 'Estimated duplicated-DNA index';
-      svg.appendChild(ylabel);
-
-      return svg;
-    }
-
-    function openInbreedingModal(nodeId) {
-      createInbreedingModal();
-      var modal = document.getElementById('inbreeding-modal');
-      var title = document.getElementById('inbreeding-modal-title');
-      var subtitle = document.getElementById('inbreeding-modal-subtitle');
-      var body = document.getElementById('inbreeding-modal-body');
-      var node = nodes.get(nodeId);
-      var rows = getInbreedingRowsForNode(nodeId);
-      body.innerHTML = '';
-      title.textContent = node && node.label ? node.label : ('Node ' + nodeId);
-      subtitle.textContent = rows.length
-        ? ('Inbreeding estimate by generation cutoff' + (inbreedingMaxGeneration ? ' up to generation ' + inbreedingMaxGeneration : ''))
-        : 'No precomputed inbreeding estimate for this node.';
-      if (!rows.length) {
-        body.textContent = 'No precomputed inbreeding estimate for this node.';
-      } else {
-        body.appendChild(renderInbreedingSvg(rows, inbreedingBaselineRows));
-      }
-      modal.style.display = 'block';
     }
 
     function createRegionLegendPanel() {
@@ -5105,7 +4883,6 @@
       var expandBtn = document.getElementById('maternal-expand-btn');
       var dynastyBtn = document.getElementById('maternal-dynasty-btn');
       var regionMapBtn = document.getElementById('maternal-region-map-btn');
-      var inbreedingBtn = document.getElementById('maternal-inbreeding-btn');
 
       expandBtn.addEventListener('click', function(event) {
         event.preventDefault();
@@ -5151,21 +4928,12 @@
         syncControls();
       });
 
-      inbreedingBtn.addEventListener('click', function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        var node = currentHoveredNode();
-        if (!node) return;
-        openInbreedingModal(node.id);
-      });
-
     }
 
     createControls();
     createMapChooser();
     createHoverPanel();
     createRegionMapModal();
-    createInbreedingModal();
     createRegionLegendPanel();
     syncControls();
     bindEvents();
