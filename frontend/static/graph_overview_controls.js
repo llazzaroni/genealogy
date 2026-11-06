@@ -2188,19 +2188,31 @@
       }
     }
 
+    function registeredDynastyForNode(node) {
+      var dynastyIds = nodeDynastyIds(node);
+      // Dynasty IDs are ordered from oldest to newest in the source data. The
+      // final registered house is also the one used for the person's arms.
+      for (var index = dynastyIds.length - 1; index >= 0; index -= 1) {
+        if (dynastyById[dynastyIds[index]]) return dynastyIds[index];
+      }
+      return null;
+    }
+
     function openPatrilinealView(nodeId) {
       var node = personNodeById[String(nodeId)];
-      var dynastyIds = nodeDynastyIds(node);
+      var dynastyId = registeredDynastyForNode(node);
       // The visible coat of arms uses the final dynasty ID.  Use that same
       // house for the action so its isolated JSON payload is loaded first.
       // This replaces, rather than extends, the previously opened house data.
-      for (var index = dynastyIds.length - 1; index >= 0; index -= 1) {
-        if (dynastyById[dynastyIds[index]]) {
-          state.selectedDynastyId = dynastyIds[index];
-          break;
-        }
-      }
+      if (dynastyId != null) state.selectedDynastyId = dynastyId;
       state.activePatrilineRootId = String(nodeId);
+      state.selectedPersonId = null;
+      state.mode = 'dynasty';
+    }
+
+    function openRegisteredDynastyView(dynastyId) {
+      state.selectedDynastyId = String(dynastyId);
+      state.activePatrilineRootId = null;
       state.selectedPersonId = null;
       state.mode = 'dynasty';
     }
@@ -4903,9 +4915,20 @@
         if (!node) return;
         pushHistory();
         state.activeRegionMapNodeId = null;
-        openPatrilinealView(node.id);
+        var maternalDynastyId = node.maternal_bridge ? registeredDynastyForNode(node) : null;
+        if (maternalDynastyId != null) {
+          // Mothers who already belong to an atlas house open that full house,
+          // rather than a one-person paternal-line projection.
+          openRegisteredDynastyView(maternalDynastyId);
+        } else {
+          openPatrilinealView(node.id);
+        }
         syncControls();
         hideHoverPanel();
+        if (maternalDynastyId != null) {
+          applyMode(true);
+          return;
+        }
         var dynastyId = normalizeSelectedDynasty();
         // Load the current house first, then extend only this requested
         // father line from the compact parent-data buckets.
